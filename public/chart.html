@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/chart.css" />
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+    <div id="divResizer" style="position:fixed;height: 20px;width: 234px;top: 0;left: 0;z-index: 9999; margin: 2px;">
+        <input type="number" placeholder="input width" id="txtWidth" style="width:80px">
+        <button id="btnResize">Resize</button>
+    </div>
+    
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+    </figure>
+    <script src="js/chart.js"></script>
+    <script>
+        $().ready(function () {
+            $('#btnResize').click(function () {
+                let width = $('#txtWidth').val()
+                $('#container').width(width ? width : '100%')
+                Chart.reflow();
+            });
+        })
+    </script>
+</body>
+
+</html>
