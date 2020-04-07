@@ -1,4 +1,8 @@
-let log = console.log
+let log = console.log,
+    Chart,
+    chartTitle = 'Ca Nhiễm Mới',
+    chartSubTitle = new Date().toLocaleString() + ' - Dữ liệu sẽ cập nhật mới sau 15 phút'
+
 $().ready(function () {
     // load chart as default conditions
     loadData(genFileName(new Date()) + '?v=' + new Date().getTime(), data => {
@@ -106,9 +110,7 @@ function mutateDataByCondition(data, condition, chartConfig) {
 function sort(array, order) {
     return _u.orderBy(array, ['y'], [order ? 'asc' : order])
 }
-let Chart,
-    chartTitle,
-    chartSubTitle
+
 log(chartTitle)
 const format = (number) => new Intl.NumberFormat(['ban', 'id']).format(number)
 function drawChart(data) {
@@ -122,7 +124,7 @@ function drawChart(data) {
             type: 'column',
         },
         title: {
-            text: chartTitle ? 'Ca Nhiễm Mới' : chartTitle,
+            text: chartTitle,
         },
         subtitle: {
             text: chartSubTitle
@@ -165,7 +167,7 @@ function drawChart(data) {
         tootip: false,
         series: [
             {
-                name: 'Chart Statistic',
+                name: 'Dữ liệu lấy từ: https://www.worldometers.info/coronavirus/ ',
                 colorByPoint: true,
                 data: data
             }

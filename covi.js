@@ -68,7 +68,7 @@ async function genHtmlTableToJson(htmlBody) {
     let jsonTheWorld = getHtmlTableWorldToJson(htmlBody)
     jsonCountries = Object.assign(jsonCountries, jsonTheWorld)
     let rows = $('#main_table_countries_today tr[style=""]')
-    for (let i = 1; i < rows.length; i++) {
+    for (let i = 0; i < rows.length; i++) {
         let row = cheerio.load(rows.eq(i).html().trim(), { xmlMode: true })
         jsonCountry = genHtmlRowTableToArray(row.html().trim())
         jsonCountries = Object.assign(jsonCountries, jsonCountry)

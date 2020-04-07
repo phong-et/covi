@@ -2,7 +2,18 @@
 <html lang="en">
 
 <head>
-    <title>Covid-19 Chart of World</title>
+    <!-- Open Graph data -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Biểu đồ Coronavirus" />
+    <meta property="og:title" content="Biểu đồ xếp hạn coronavirus covichart.herokuapp.com" />
+    <meta property="og:url" content="https://covichart.herokuapp.com/" />
+    <meta property="og:image" content="https://cdn2.vectorstock.com/i/1000x1000/60/26/wuhan-coronavirus-prevention-campaign-flat-banner-vector-29336026.jpg" />
+    <meta property="og:description" content="Biểu đồ cuộc đua virus Vũ Hán của các nước" />
+    <meta property="article:tag" content="coronavirus, virus vũ hán, wuhan virus, báo, covid-19 chart, covy chart, biểu đồ cô vy" />
+    <meta content="coronavirus, virus vũ hán, wuhan virus, báo, covid-19 chart, covy chart, biểu đồ cô vy" />
+    <meta property="article:author" content="nguyenduyphong" />
+
+    <title>Chart of Coronavirus Update (Live) from Worldometer</title>
     <link rel="stylesheet" href="css/chart.css" />
     <!-- Hightchart -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -65,7 +76,6 @@
             opacity: 0.95;
             z-index: 999999;
         }
-        /* body,html{height: 100%; width: 100%;} */
     </style>
 </head>
 
@@ -118,13 +128,14 @@
                     <option value="4500">4500px</option>
                     <option value="5000">5000px</option>
                     <option value="8000">8000px</option>
-                </select>
+                </select><br />
+                <a href="#" onclick="alert('Cảm ơn thiện chí của bạn, hiện tại chỉ là bản demo, mình sẽ cập nhật sau')">Góp ý</a>
                 <!-- <button class="btn btn-primary btn-small" type="button" id="btnResize">Mở rộng đồ thị</button> -->
             </div>
         </fieldset>
     </form>
     <script>
-        _u = _.noConflict(); // lets call ourselves _u
+        _u = _.noConflict();
     </script>
     <script src="js/chart.js"></script>
 </body>
