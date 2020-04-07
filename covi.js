@@ -4,7 +4,7 @@ let rp = require('request-promise'),
     log = console.log,
     dataPath = 'public/data/',
     isSaveToHtmlFile = false,
-    isLiveHeroku = false
+    isLiveHeroku = true
 
 async function readFile(path) {
     return new Promise((resolve, reject) => {
@@ -76,7 +76,7 @@ async function genHtmlTableToJson(htmlBody) {
     let content = JSON.stringify(jsonCountries)
     //log(content)
     await writeFile(dataPath + genFileName('.json'), content)
-    if(isLiveHeroku) await writeFile(dataPath + genFileName('.json', true), content)
+    if(!isLiveHeroku) await writeFile(dataPath + genFileName('.json', true), content)
     return content
 }
 const delComma = (selectorRow, i) => selectorRow.eq(i).text().trim().replace(/,+/g, '')
