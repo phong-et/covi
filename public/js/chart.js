@@ -7,7 +7,7 @@ let log = console.log,
         loadData(genFileName(new Date()) + '?v=' + new Date().getTime(), data => {
             if (data.length === 0)
                 alert('DỮ LIỆU CHƯA CẬP NHẬT')
-            else drawChart(mutateDataByCondition(data, 'newCases', { limitedNumber: 20, isIncludedTheWorld: false }))
+            else drawChart(mutateDataByCondition(data, 'newCases', { limitedNumber: 10, isIncludedTheWorld: false }))
         })
         setTimeout(() => {
             autoLoad()
