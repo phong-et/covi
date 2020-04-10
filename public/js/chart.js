@@ -1,13 +1,21 @@
 let log = console.log,
     Chart,
     chartTitle = 'Ca Nhiễm Mới',
-    chartSubTitle = new Date().toLocaleString() + ' - Dữ liệu sẽ cập nhật mới sau 15 phút'
-
+    chartSubTitle = new Date().toLocaleString() + ' - Dữ liệu sẽ cập nhật mới sau 15 phút',
+    _15_MINUTES = 900 * 1000,
+    autoLoad = () => {
+        loadData(genFileName(new Date()) + '?v=' + new Date().getTime(), data => {
+            if (data.length === 0)
+                alert('DỮ LIỆU CHƯA CẬP NHẬT')
+            else drawChart(mutateDataByCondition(data, 'newCases', { limitedNumber: 20, isIncludedTheWorld: false }))
+        })
+        setTimeout(() => {
+            autoLoad()
+        }, _15_MINUTES);
+    };
 $().ready(function () {
     // load chart as default conditions
-    loadData(genFileName(new Date()) + '?v=' + new Date().getTime(), data => {
-        drawChart(mutateDataByCondition(data, 'newCases', { limitedNumber: 20, isIncludedTheWorld: false }))
-    })
+    autoLoad()
     let options = {
         format: 'dd/mm/yyyy',
         setDate: new Date(),
@@ -27,10 +35,14 @@ $().ready(function () {
 
         chartTitle = caseType.text()
         loadData(fileName, data => {
-            if (limitedNumber === 'all')
-                data = mutateDataByCondition(data, condition, { isIncludedTheWorld: isIncludedTheWorld })
-            else data = mutateDataByCondition(data, condition, { limitedNumber: +limitedNumber, isIncludedTheWorld: isIncludedTheWorld })
-            drawChart(data)
+            if (Object.keys(data).length === 0)
+                alert('DỮ LIỆU CHƯA CẬP NHẬT')
+            else {
+                if (limitedNumber === 'all')
+                    data = mutateDataByCondition(data, condition, { isIncludedTheWorld: isIncludedTheWorld })
+                else data = mutateDataByCondition(data, condition, { limitedNumber: +limitedNumber, isIncludedTheWorld: isIncludedTheWorld })
+                drawChart(data)
+            }
         })
         Chart.reflow();
     });
@@ -54,9 +66,8 @@ function genFileName(date) {
 }
 function loadData(fileName, callback) {
     $.getJSON('data/' + fileName, function (json) {
-        //log(json)
         callback(json)
-    })
+    }).fail(function () { alert('DỮ LIỆU CHƯA CẬP NHẬT') })
 }
 /**
  * @param {*} data input format :
@@ -77,6 +88,7 @@ function loadData(fileName, callback) {
     //testsPer1MPop: 
  */
 function mutateDataByCondition(data, condition, chartConfig) {
+    if (Object.keys(data).length === 0) return []
     let mutatedData = [],
         indexCondition = 0
     switch (condition) {
@@ -153,17 +165,12 @@ function drawChart(data) {
                 borderWidth: 0,
                 dataLabels: {
                     enabled: true,
-                    //format: '{point.percent:.2f} %<br/>{point.y}',
                     formatter: function () {
                         return `${parseFloat(this.point.percent).toFixed(2)} %<br/>${format(this.y)}`;
                     }
                 }
             }
         },
-        // tooltip: {
-        //     headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        //     pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.percent:.1f} %</b> of total<br/>'
-        // },
         tootip: false,
         series: [
             {
