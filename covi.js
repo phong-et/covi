@@ -76,7 +76,7 @@ async function genHtmlTableToJson(htmlBody) {
     let content = JSON.stringify(jsonCountries)
     //log(content)
     await writeFile(dataPath + genFileName('.json'), content)
-    if(!isLiveHeroku) await writeFile(dataPath + genFileName('.json', true), content)
+    if (!isLiveHeroku) await writeFile(dataPath + genFileName('.json', true), content)
     return content
 }
 const delComma = (selectorRow, i) => selectorRow.eq(i).text().trim().replace(/,+/g, '')
@@ -112,19 +112,19 @@ function genHtmlRowTableToArray(strHtmlRow) {
     jsonRow[rowKeyName] = rowKeyValue
     return jsonRow
 }
-const WAIT_NEXT_FETCHING = 900 // 15 minutes
+const WAIT_NEXT_FETCHING = 900 * 1000 // 15 minutes
 async function run() {
     let currentData = []
     try {
         let html = await fetchHtmlTable('https://www.worldometers.info/coronavirus/')
         currentData = await genHtmlTableToJson(html)
         log('%s: waiting after %ss', new Date().toLocaleString(), WAIT_NEXT_FETCHING)
-        setTimeout(async () => await run(), WAIT_NEXT_FETCHING * 1000)
+        setTimeout(async () => await run(), WAIT_NEXT_FETCHING)
         return currentData
     } catch (error) {
         log(error)
         log('%s:Has error, waiting after %ss', new Date().toLocaleString())
-        await run()
+        setTimeout(async () => await run(), WAIT_NEXT_FETCHING)
     }
 }
 
