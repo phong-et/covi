@@ -37,12 +37,12 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" />
     <style>
         fieldset {
-            border: 0.5px groove rgb(184, 181, 181) !important;
+            border: 0.5px groove rgb(255,255,255) !important;
             padding: 0.5em !important;
             margin: 0 0.5em 0 0.5em !important;
             -webkit-box-shadow: 0px 0px 0px 0px rgb(184, 181, 181);
             box-shadow: 0px 0px 0px 0px rgb(184, 181, 181);;
-            background-color: #f7f7eb;
+            background-color: #f5faff;
         }
 
         fieldset .form-control {
@@ -86,8 +86,8 @@
     </figure>
     <form id="form-search-control" class="form-inline">
         <fieldset class="controller-group">
-            <legend>
-                <h6>Cấu hình</h6>
+            <legend class="togvis">
+                <h6><img id="imgToggle" src="http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Collapse-icon.png"/></h6>
             </legend>
             <i class="far fa-calendar-alt fa-2x" style="margin-top: 2px;color: #000;"></i>
             <input id="datepickerCovid" style="width:110px; margin-top: -13px;" type="text" class="form-control">

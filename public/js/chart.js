@@ -56,6 +56,20 @@ $().ready(function () {
         Chart.reflow();
     })
     $('#ddlCaseType').change(() => btnViewChart.trigger('click'))
+
+
+    $("fieldset legend").click(function () {
+        if ($(this).parent().children().length == 2) {
+            $('#imgToggle').prop('src', 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Collapse-icon.png')
+            $(this).parent().find("div").toggle();
+        }
+        else {
+            $('#imgToggle').prop('src', 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Expand-icon.png')
+            $(this).parent().wrapInner("<div>");
+            $(this).appendTo($(this).parent().parent());
+            $(this).parent().find("div").toggle();
+        }
+    });
 })
 //date is a Date() object
 function genFileName(date) {
