@@ -3,16 +3,40 @@ let log = console.log,
     chartTitle = 'Ca Nhiễm Mới',
     chartSubTitle = new Date().toLocaleString() + ' - Dữ liệu sẽ cập nhật mới sau 15 phút',
     _15_MINUTES = 900 * 1000,
+    expandedIcon = 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Expand-icon.png',
+    collapsedIcon = 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Collapse-icon.png',
+    globalData = [],
+    selectedIcon = collapsedIcon,
     autoLoad = () => {
         loadData(genFileName(new Date()) + '?v=' + new Date().getTime(), data => {
-            if (data.length === 0)
+            globalData = data
+            if (Object.keys(globalData).length === 0) {
                 alert('DỮ LIỆU CHƯA CẬP NHẬT')
-            else drawChart(mutateDataByCondition(data, 'newCases', { limitedNumber: 10, isIncludedTheWorld: false }))
+                drawChart([])
+            }
+            else drawChart(mutateDataByCondition(globalData, 'newCases', { limitedNumber: 10, isIncludedTheWorld: false }))
         })
         setTimeout(() => {
             autoLoad()
         }, _15_MINUTES);
-    };
+    },
+    toggleSetting = (e) => {
+        if (selectedIcon === collapsedIcon)
+            selectedIcon = expandedIcon
+        else
+            selectedIcon = collapsedIcon
+        if (e.parent().children().length == 2) {
+            $('#imgToggle').prop('src', selectedIcon)
+            e.parent().find("div").toggle();
+        }
+        else {
+            $('#imgToggle').prop('src', selectedIcon)
+            e.parent().wrapInner("<div>");
+            e.appendTo(e.parent().parent());
+            e.parent().find("div").toggle();
+        }
+    }
+
 $().ready(function () {
     // load chart as default conditions
     autoLoad()
@@ -29,47 +53,51 @@ $().ready(function () {
     btnViewChart.click(function () {
         let caseType = $('#ddlCaseType option:selected'),
             condition = caseType.val(),
-            fileName = genFileName($('#datepickerCovid').datepicker('getDate')),
+            //fileName = genFileName($('#datepickerCovid').datepicker('getDate')),
             limitedNumber = $('#ddlLimitedCountry option:selected').val(),
             isIncludedTheWorld = $('#cbIsIncludedTheWorld').is(':checked')
 
         chartTitle = caseType.text()
-        loadData(fileName, data => {
-            if (Object.keys(data).length === 0)
-                alert('DỮ LIỆU CHƯA CẬP NHẬT')
-            else {
-                if (limitedNumber === 'all')
-                    data = mutateDataByCondition(data, condition, { isIncludedTheWorld: isIncludedTheWorld })
-                else data = mutateDataByCondition(data, condition, { limitedNumber: +limitedNumber, isIncludedTheWorld: isIncludedTheWorld })
-                drawChart(data)
-            }
-        })
+        if (Object.keys(globalData).length === 0) {
+            alert('DỮ LIỆU CHƯA CẬP NHẬT')
+            drawChart([])
+        }
+        else {
+            let data = []
+            if (limitedNumber === 'all')
+                data = mutateDataByCondition(globalData, condition, { isIncludedTheWorld: isIncludedTheWorld })
+            else data = mutateDataByCondition(globalData, condition, { limitedNumber: +limitedNumber, isIncludedTheWorld: isIncludedTheWorld })
+            drawChart(data)
+        }
         Chart.reflow();
     });
 
     $('#cbIsIncludedTheWorld').change(() => btnViewChart.trigger('click'))
     $('#ddlLimitedCountry').change(() => btnViewChart.trigger('click'))
-    $('#datepickerCovid').change(() => btnViewChart.trigger('click'))
+    $('#datepickerCovid').change(() => {
+        loadData(genFileName($('#datepickerCovid').datepicker('getDate')), data => {
+            globalData = data
+            if (data.length === 0)
+                alert('DỮ LIỆU CHƯA CẬP NHẬT')
+            else btnViewChart.trigger('click')
+        })
+
+    })
     $('#ddlSizeChart').change(() => {
         let width = $('#ddlSizeChart option:selected').val()
         $('#container').width(width ? width : '100%')
         Chart.reflow();
     })
     $('#ddlCaseType').change(() => btnViewChart.trigger('click'))
-
-
-    $("fieldset legend").click(function () {
-        if ($(this).parent().children().length == 2) {
-            $('#imgToggle').prop('src', 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Collapse-icon.png')
-            $(this).parent().find("div").toggle();
+    
+    $("fieldset legend").on('click', function () {
+        toggleSetting($(this))
+    })
+    $('#container').click(() => {
+        if (selectedIcon === collapsedIcon) {
+            toggleSetting($($("fieldset legend")))
         }
-        else {
-            $('#imgToggle').prop('src', 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Expand-icon.png')
-            $(this).parent().wrapInner("<div>");
-            $(this).appendTo($(this).parent().parent());
-            $(this).parent().find("div").toggle();
-        }
-    });
+    })
 })
 //date is a Date() object
 function genFileName(date) {
@@ -128,16 +156,16 @@ function mutateDataByCondition(data, condition, chartConfig) {
     if (chartConfig && !chartConfig.isIncludedTheWorld)
         mutatedData.splice(0, 1)
     mutatedData = sort(mutatedData).reverse()
-    log(mutatedData)
+    //log(mutatedData)
     if (chartConfig && chartConfig.limitedNumber) mutatedData.splice(chartConfig.limitedNumber)
-    log(mutatedData)
+    //log(mutatedData)
     return mutatedData
 }
 function sort(array, order) {
     return _u.orderBy(array, ['y'], [order ? 'asc' : order])
 }
 
-log(chartTitle)
+//log(chartTitle)
 const format = (number) => new Intl.NumberFormat(['ban', 'id']).format(number)
 function drawChart(data) {
     Highcharts.setOptions({
