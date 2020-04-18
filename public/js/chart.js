@@ -1,7 +1,7 @@
 let log = console.log,
     Chart,
     chartTitle = 'Ca Nhiễm Mới',
-    chartSubTitle = new Date().toLocaleString() + ' - Dữ liệu sẽ cập nhật mới sau 15 phút',
+    chartSubTitle = new Date().toLocaleString('vi-VN') + ' - worldometers.info',
     _15_MINUTES = 900 * 1000,
     expandedIcon = 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Expand-icon.png',
     collapsedIcon = 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Collapse-icon.png',
@@ -168,11 +168,26 @@ function sort(array, order) {
 //log(chartTitle)
 const format = (number) => new Intl.NumberFormat(['ban', 'id']).format(number)
 function drawChart(data) {
-    Highcharts.setOptions({
+    
+    Highcharts.theme = {
+        chart: {},
+        title: {
+            style: {
+                color: '#000',
+                font: 'bold 16px "Tahoma", Verdana, sans-serif'
+            }
+        },
+        subtitle: {
+            style: {
+                color: '#666666',
+                font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
+            }
+        },
         lang: {
             thousandsSep: '.'
         }
-    });
+    };
+    Highcharts.setOptions(Highcharts.theme);
     Chart = Highcharts.chart('container', {
         chart: {
             type: 'column',
@@ -200,7 +215,7 @@ function drawChart(data) {
             },
         },
         legend: {
-            enabled: true
+            enabled: false
         },
         plotOptions: {
             series: {
@@ -216,7 +231,7 @@ function drawChart(data) {
         tootip: false,
         series: [
             {
-                name: 'Dữ liệu lấy từ: https://www.worldometers.info/coronavirus/ ',
+                //name: 'Quốc Gia',
                 colorByPoint: true,
                 data: data
             }
