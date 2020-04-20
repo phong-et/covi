@@ -66,6 +66,10 @@ $().ready(function () {
             let data = []
             if (limitedNumber === 'all')
                 data = mutateDataByCondition(globalData, condition, { isIncludedTheWorld: isIncludedTheWorld })
+            else if (isNaN(limitedNumber)) {
+                let areaName = limitedNumber
+                data = mutateDataByCondition(globalData, condition, { isIncludedTheWorld: isIncludedTheWorld }, areaName)
+            }
             else data = mutateDataByCondition(globalData, condition, { limitedNumber: +limitedNumber, isIncludedTheWorld: isIncludedTheWorld })
             drawChart(data)
         }
@@ -89,7 +93,7 @@ $().ready(function () {
         Chart.reflow();
     })
     $('#ddlCaseType').change(() => btnViewChart.trigger('click'))
-    
+
     $("fieldset legend").on('click', function () {
         toggleSetting($(this))
     })
@@ -111,6 +115,15 @@ function loadData(fileName, callback) {
         callback(json)
     }).fail(function () { alert('DỮ LIỆU CHƯA CẬP NHẬT') })
 }
+function filterCountriesByArea(areaName, countries) {
+    return loadData('world_areas.json', function (areas) {
+        let selectedArea = areas[areaName],
+            data = {"world":countries["world"]}
+        for (var countryName in selectedArea)
+            data[countryName] = countries[countryName]
+        return data
+    })
+}
 /**
  * @param {*} data input format :
  * {
@@ -129,7 +142,7 @@ function loadData(fileName, callback) {
     //totalTests: 
     //testsPer1MPop: 
  */
-function mutateDataByCondition(data, condition, chartConfig) {
+function mutateDataByCondition(data, condition, chartCfg, areaName) {
     if (Object.keys(data).length === 0) return []
     let mutatedData = [],
         indexCondition = 0
@@ -142,8 +155,14 @@ function mutateDataByCondition(data, condition, chartConfig) {
         case 'activeCases': indexCondition = 5; break
         case 'seriousCritical': indexCondition = 6; break
     }
-    let countries = data
+    let countries;
+    // filter countries by area
+    if (areaName)
+        countries = filterCountriesByArea(areaName, data)
+    else countries = data
+    // calc sum of all countries = number of the world
     var sum = countries["world"][indexCondition]
+
     for (var countryName in countries) {
         var number = countries[countryName][indexCondition]
         if (number > 0)
@@ -153,11 +172,11 @@ function mutateDataByCondition(data, condition, chartConfig) {
                 percent: countryName === 'world' ? 100 : (number / sum) * 100
             })
     }
-    if (chartConfig && !chartConfig.isIncludedTheWorld)
+    if (chartCfg && !chartCfg.isIncludedTheWorld)
         mutatedData.splice(0, 1)
     mutatedData = sort(mutatedData).reverse()
     //log(mutatedData)
-    if (chartConfig && chartConfig.limitedNumber) mutatedData.splice(chartConfig.limitedNumber)
+    if (chartCfg && chartCfg.limitedNumber) mutatedData.splice(chartCfg.limitedNumber)
     //log(mutatedData)
     return mutatedData
 }
@@ -168,7 +187,7 @@ function sort(array, order) {
 //log(chartTitle)
 const format = (number) => new Intl.NumberFormat(['ban', 'id']).format(number)
 function drawChart(data) {
-    
+
     Highcharts.theme = {
         chart: {},
         title: {
