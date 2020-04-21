@@ -229,7 +229,7 @@ function drawChart(data) {
         xAxis: {
             type: 'category',
             title: {
-                text: 'Quốc gia'
+                text: 'Quốc gia <br/><br/>©️ copyright covi.phonglongdong.com'
             }
         },
         yAxis: {
