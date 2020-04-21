@@ -1,6 +1,7 @@
-{
+let areas = {
     "middleEast": {
         "iran": "",
+        "iraq": "",
         "israel": "",
         "uae": "các tiễu vương quốc á rập thống nhất",
         "kuwait": "cô oét",
@@ -232,7 +233,7 @@
         "austria": "",
         "australia": "",
         "papua_new_guinea": "papua_new_guinea",
-        "new_zeaneald": "niu di lân",
+        "new_zealand": "niu di lân",
         "fiji": "",
         "new_caledonia": ""
     },

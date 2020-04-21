@@ -1,7 +1,7 @@
 let log = console.log,
     Chart,
-    chartTitle = 'Ca Nhiễm Mới',
-    chartSubTitle = new Date().toLocaleString('vi-VN') + ' - worldometers.info',
+    chartTitle = 'Tổng Ca Nhiễm',
+    chartSubTitle = 'Cập nhật mới nhất lúc ' + new Date().toLocaleString('vi-VN') + ' từ worldometers.info',
     _15_MINUTES = 900 * 1000,
     expandedIcon = 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Expand-icon.png',
     collapsedIcon = 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Collapse-icon.png',
@@ -14,7 +14,7 @@ let log = console.log,
                 alert('DỮ LIỆU CHƯA CẬP NHẬT')
                 drawChart([])
             }
-            else drawChart(mutateDataByCondition(globalData, 'newCases', { limitedNumber: 10, isIncludedTheWorld: false }))
+            else drawChart(mutateDataByCondition(globalData, 'totalCases', { limitedNumber: 10, isIncludedTheWorld: false }))
         })
         setTimeout(() => {
             autoLoad()
@@ -115,14 +115,12 @@ function loadData(fileName, callback) {
         callback(json)
     }).fail(function () { alert('DỮ LIỆU CHƯA CẬP NHẬT') })
 }
-function filterCountriesByArea(areaName, countries) {
-    return loadData('world_areas.json', function (areas) {
-        let selectedArea = areas[areaName],
-            data = {"world":countries["world"]}
-        for (var countryName in selectedArea)
-            data[countryName] = countries[countryName]
-        return data
-    })
+function filterCountriesByArea(areaName, countries, areas) {
+    let selectedArea = areas[areaName],
+        data = { "world": countries["world"] }
+    for (var countryName in selectedArea)
+        data[countryName] = countries[countryName]
+    return data
 }
 /**
  * @param {*} data input format :
@@ -158,19 +156,24 @@ function mutateDataByCondition(data, condition, chartCfg, areaName) {
     let countries;
     // filter countries by area
     if (areaName)
-        countries = filterCountriesByArea(areaName, data)
+      countries = filterCountriesByArea(areaName, data, areas)
     else countries = data
     // calc sum of all countries = number of the world
     var sum = countries["world"][indexCondition]
-
     for (var countryName in countries) {
-        var number = countries[countryName][indexCondition]
-        if (number > 0)
+        try {
+            var number = countries[countryName][indexCondition]
+        if (number >= 0)
             mutatedData.push({
                 name: countryName.toUpperCase().replace(/_/g, ' '),
                 y: number,
                 percent: countryName === 'world' ? 100 : (number / sum) * 100
             })
+        } catch (error) {
+            log(error)
+            log(countryName)
+            log(countries[countryName])
+        }
     }
     if (chartCfg && !chartCfg.isIncludedTheWorld)
         mutatedData.splice(0, 1)
@@ -193,13 +196,14 @@ function drawChart(data) {
         title: {
             style: {
                 color: '#000',
-                font: 'bold 16px "Tahoma", Verdana, sans-serif'
+                font: 'bold 16px "Tahoma", Verdana, sans-serif',
+                "text-transform":"uppercase"
             }
         },
         subtitle: {
             style: {
                 color: '#666666',
-                font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
+                font: 'bold 12px "Arial", Verdana, sans-serif'
             }
         },
         lang: {
