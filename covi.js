@@ -110,6 +110,11 @@ function genHtmlToJsonOfCountry(strHtmlRow) {
     jsonRow[rowKeyName] = rowKeyValue
     return jsonRow
 }
+async function fetchLatestData() {
+    let content = await fetchContentPage('https://www.worldometers.info/coronavirus/')
+    return await genContentToJson(content)
+}
+
 const WAIT_NEXT_FETCHING = 900 * 1000 // 15 minutes
 async function run() {
     let currentData = []
@@ -131,7 +136,10 @@ async function run() {
 }
 
 module.exports = {
-    run: run
+    run: run,
+    fetchLatestData: fetchLatestData
 };
+
 /////// Main ////////
 //(async () => await run())()
+//(async () => log(await fetchLatestData()))()
