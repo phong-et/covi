@@ -3,18 +3,19 @@
 <head>
     <!-- Open Graph data -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Biểu đồ Coronavirus" />
+    <meta property="og:site_name" content="Biểu đồ Covid-19" />
     <meta property="og:title" content="Biểu đồ covid-19 các quốc gia" />
     <meta property="og:url" content="https://covichart.herokuapp.com/" />
     <meta property="og:image" content="img/earth-mask-covid.jpg" />
     <meta property="og:description" content="Tổng ca nhiếm, nhiễm mới & tử vong  các Châu, Đông Nam Á, Trung Đông, Top [5,10,20,30,40,50]" />
-    <meta property="article:tag" content="coronavirus, virus vũ hán, wuhan virus, báo, covid-19 chart, covy chart, biểu đồ cô vy" />
-    <meta content="coronavirus, virus vũ hán, wuhan virus, báo, covid-19 chart, covy chart, biểu đồ cô vy" />
+    <meta property="article:tag" content="coronavirus, covid-19 chart, Cô Vy, covy, biểu đồ covid-19" />
+    <meta content="Tổng ca nhiếm, nhiễm mới & tử vong  các Châu, Đông Nam Á, Trung Đông, Top [5,10,20,30,40,50]" />
     <meta property="article:author" content="covi.phonglongdong.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Coronavirus Chart</title>
     <link rel="shortcut icon" href="https://img.icons8.com/nolan/64/coronavirus.png">
     <link rel="stylesheet" href="css/chart.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <!-- Hightchart -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
@@ -35,52 +36,6 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" />
     <script src="data/world_areas.js"></script>
-    <style>
-        fieldset {
-            border: 0.5px groove rgb(255,255,255) !important;
-            padding: 0.5em !important;
-            margin: 0 0.5em 0 0.5em !important;
-            -webkit-box-shadow: 0px 0px 0px 0px rgb(184, 181, 181);
-            box-shadow: 0px 0px 0px 0px rgb(184, 181, 181);;
-            background-color: #f5faff;
-        }
-
-        fieldset .form-control {
-            display: inline;
-        }
-
-        legend {
-            width: inherit;
-            /* Or auto */
-            padding: 0 10px;
-            /* To give a bit of padding on the left and right */
-            border-bottom: none;
-        }
-
-        #divResizer {
-            position: fixed;
-            height: 20px;
-            width: 234px;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            margin: 2px;
-        }
-
-        label {
-            display: initial !important;
-        }
-        #form-search-control{
-            position: fixed;
-            top: 0;
-            right:0;
-            opacity: 0.95;
-            z-index: 999999;
-        }
-        html,body{height:100%; width:100%}
-        form{font-family: Tahoma, Helvetica, sans-serif}
-        /* fieldset {padding: 3px !important;} */
-    </style>
 </head>
 
 <body>
@@ -141,7 +96,6 @@
                     <option value="8000">8000px</option>
                 </select><br />
                 <!-- <a href="#" onclick="alert('Cảm ơn thiện chí của bạn, hiện tại chỉ là bản demo, mình sẽ cập nhật sau')">Góp ý</a> -->
-                <!-- <button class="btn btn-primary btn-small" type="button" id="btnResize">Mở rộng đồ thị</button> -->
             </div>
         </fieldset>
     </form>
@@ -149,5 +103,6 @@
         _u = _.noConflict();
     </script>
     <script src="js/chart.js"></script>
+    <script src="js/fetch.js"></script>
 </body>
 </html>

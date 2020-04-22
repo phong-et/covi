@@ -115,7 +115,7 @@ async function fetchLatestData() {
     return await genContentToJson(content)
 }
 
-const WAIT_NEXT_FETCHING = 900 * 1000 // 15 minutes
+const WAIT_NEXT_FETCHING = 1800 * 1000 // 15 minutes
 async function run() {
     let currentData = []
     try {

@@ -6,3 +6,47 @@ body {
 a {
   color: #00B7FF;
 }
+fieldset {
+  border: 0.5px groove rgb(255,255,255) !important;
+  padding: 0.5em !important;
+  margin: 0 0.5em 0 0.5em !important;
+  -webkit-box-shadow: 0px 0px 0px 0px rgb(184, 181, 181);
+  box-shadow: 0px 0px 0px 0px rgb(184, 181, 181);;
+  background-color: #f5faff;
+}
+
+fieldset .form-control {
+  display: inline;
+}
+
+legend {
+  width: inherit;
+  /* Or auto */
+  padding: 0 10px;
+  /* To give a bit of padding on the left and right */
+  border-bottom: none;
+}
+
+#divResizer {
+  position: fixed;
+  height: 20px;
+  width: 234px;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  margin: 2px;
+}
+
+label {
+  display: initial !important;
+}
+#form-search-control{
+  position: fixed;
+  top: 0;
+  right:0;
+  opacity: 0.95;
+  z-index: 999999;
+}
+html,body{height:100%; width:100%}
+form{font-family: Tahoma, Helvetica, sans-serif}
+/* fieldset {padding: 3px !important;} */
