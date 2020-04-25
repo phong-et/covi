@@ -4,8 +4,8 @@
         chartTitle = 'Tổng Ca Nhiễm',
         chartSubTitle = 'Cập nhật mới nhất lúc ' + new Date().toLocaleString('vi-VN') + ' từ worldometers.info',
         _15_MINUTES = 900 * 1000,
-        expandedIcon = 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Expand-icon.png',
-        collapsedIcon = 'http://icons.iconarchive.com/icons/icons8/ios7/16/Editing-Collapse-icon.png',
+        expandedIcon = 'img/Editing-Expand-icon.png',
+        collapsedIcon = 'img/Editing-Collapse-icon.png',
         globalData = [],
         selectedIcon = collapsedIcon,
         autoLoad = () => {
