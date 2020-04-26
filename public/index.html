@@ -16,7 +16,7 @@
     <meta property="article:author" content="covi.phonglongdong.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Coronavirus Chart</title>
-    <link rel="shortcut icon" href="https://img.icons8.com/nolan/64/coronavirus.png">
+    <link rel="shortcut icon" href="//img.icons8.com/nolan/64/coronavirus.png">
     <!-- Hightchart -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
@@ -30,7 +30,7 @@
     <script src="js/bootstrap-datepicker.min.js"></script>
     <link href="css/bootstrap-datepicker.min.css" rel="stylesheet" />
     <!--Lodash-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
     <!-- Bootstrap css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -60,7 +60,7 @@
                         src="img/Editing-Collapse-icon.png" /></h6>
             </legend>
             <i class="far fa-calendar-alt fa-2x" style="margin-top: 2px;color: #000;"></i>
-            <input id="datepickerCovid" style="width:110px; margin-top: -13px;" type="text" class="form-control">
+            <input id="datepickerCovid" style="width:120px; margin-top: -13px;" type="text" class="form-control">
             <br /><br />
             <!-- <label id="lbAge">Chọn loại đồ thị: </label> -->
             <select class="form-control" id="ddlCaseType" style="margin-top:-13px; margin-bottom: 5px; width:180px;">
@@ -71,6 +71,7 @@
                 <option value="totalRecovered">Tổng ca bình phục</option>
                 <option value="activeCases">Ca đang điều trị</option>
                 <option value="seriousCritical">Số ca nghiêm trọng</option>
+                <option value="totalCasesPer1MPop">Tỷ lệ nhiễm(ca/1 triệu dân)</option>
             </select>
             <select class="form-control" id="ddlLimitedCountry"
                 style="margin-top: -13px; margin-bottom: 5px; width: 150px;">
@@ -95,7 +96,7 @@
             <button id="btnViewChart" type="button" style="margin-top:-13px; display: none;"
                 class="btn btn-primary btn-small"><i class="fa fa-refresh"></i><span></span> Xem đồ thị</button>
             <div id="divResizer2" style="margin:2px; padding:0;">
-                <select class="form-control" id="ddlSizeChart" style="width: 160px;">
+                <select class="form-control" id="ddlSizeChart" style="width: 180px;">
                     <option value="all" selected>Kéo dài biểu đồ</option>
                     <option value="1000">1000px</option>
                     <option value="1500">1500px</option>

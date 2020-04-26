@@ -187,6 +187,7 @@
             case 'totalRecovered': indexCondition = 4; break
             case 'activeCases': indexCondition = 5; break
             case 'seriousCritical': indexCondition = 6; break
+            case 'totalCasesPer1MPop': indexCondition = 7; break
         }
         let countries;
         // filter countries by area
