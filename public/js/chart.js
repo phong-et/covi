@@ -8,14 +8,28 @@
         collapsedIcon = 'img/Editing-Collapse-icon.png',
         globalData = [],
         selectedIcon = collapsedIcon,
+        isMobile = () => {
+            //return window.innerHeight > window.innerWidth
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && window.innerHeight > window.innerWidth
+        },
         autoLoad = () => {
+            if (isMobile())
+                $('#ddlLimitedCountry option[value=6]').prop('selected', 'selected')
+            else
+                $('#ddlLimitedCountry option[value=10]').prop('selected', 'selected')
             loadData(genFileName(new Date()) + '?v=' + new Date().getTime(), data => {
                 globalData = data
+                let limitedNumber = isMobile() ? 6 : 10
+                chartTitle += isMobile() ? ' Top 6 Nước' : ' Top 10 Nước'
                 if (Object.keys(globalData).length <= 1) {
                     alert('DỮ LIỆU CHƯA CẬP NHẬT')
                     drawChart([])
                 }
-                else drawChart(mutateDataByCondition(globalData, 'totalCases', { limitedNumber: 6, isIncludedTheWorld: false }))
+                else drawChart(
+                    mutateDataByCondition(globalData, 'totalCases', {
+                        limitedNumber: limitedNumber, isIncludedTheWorld: false
+                    })
+                )
             })
             setTimeout(() => {
                 autoLoad()
@@ -68,6 +82,7 @@
             fhs('686f73746e616d65'),      // [4]
             fhs('6c6f63616c686f7374'),    // [5]
         ];
+
     $().ready(function () {
         // load chart as default conditions
         autoLoad()
