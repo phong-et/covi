@@ -11,11 +11,11 @@
         autoLoad = () => {
             loadData(genFileName(new Date()) + '?v=' + new Date().getTime(), data => {
                 globalData = data
-                if (Object.keys(globalData).length === 0) {
+                if (Object.keys(globalData).length <= 1) {
                     alert('DỮ LIỆU CHƯA CẬP NHẬT')
                     drawChart([])
                 }
-                else drawChart(mutateDataByCondition(globalData, 'totalCases', { limitedNumber: 10, isIncludedTheWorld: false }))
+                else drawChart(mutateDataByCondition(globalData, 'totalCases', { limitedNumber: 6, isIncludedTheWorld: false }))
             })
             setTimeout(() => {
                 autoLoad()
@@ -142,8 +142,8 @@
     }
     function loadData(fileName, callback) {
         if (
-            window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[5]) 
-            || 
+            window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[5])
+            ||
             window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[0]) + hex2a(hw[1]) + hex2a(hw[2]))
             $.getJSON('data/' + fileName, function (json) {
                 callback(json)
@@ -188,6 +188,9 @@
             case 'activeCases': indexCondition = 5; break
             case 'seriousCritical': indexCondition = 6; break
             case 'totalCasesPer1MPop': indexCondition = 7; break
+            case 'deathsPer1MPop': indexCondition = 8; break
+            case 'totalTests': indexCondition = 9; break
+            case 'testsPer1MPop': indexCondition = 10; break
         }
         let countries;
         // filter countries by area
@@ -225,8 +228,11 @@
 
     //log(chartTitle)
     const format = (number) => new Intl.NumberFormat(['ban', 'id']).format(number)
+    const formatPercent = (number) => {
+        let formatNumber = parseFloat(number).toFixed(2)
+        return formatNumber !== 'Infinity' ? formatNumber + '%' : formatNumber
+    }
     function drawChart(data) {
-
         Highcharts.theme = {
             chart: {},
             title: {
@@ -266,7 +272,7 @@
                 type: 'category',
                 title: {
                     text: 'Quốc gia <br/><br/>©️ copyright covi.phonglongdong.com'
-                }
+                },
             },
             yAxis: {
                 title: {
@@ -282,7 +288,7 @@
                     dataLabels: {
                         enabled: true,
                         formatter: function () {
-                            return `${parseFloat(this.point.percent).toFixed(2)} %<br/>${format(this.y)}`;
+                            return `${formatPercent(this.point.percent)}<br/>${format(this.y)}`;
                         }
                     }
                 }
@@ -290,9 +296,8 @@
             tootip: false,
             series: [
                 {
-                    //name: 'Quốc Gia',
                     colorByPoint: true,
-                    data: data
+                    data: data,
                 }
             ]
         })

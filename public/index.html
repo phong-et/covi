@@ -7,12 +7,12 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Biểu đồ Covid-19" />
     <meta property="og:title" content="Biểu đồ covid-19 các quốc gia" />
-    <meta property="og:url" content="https://covichart.herokuapp.com/" />
+    <meta property="og:url" content="https://covi.phonglongdong.com" />
     <meta property="og:image" content="img/earth-mask-covid.jpg" />
     <meta property="og:description"
-        content="Tổng ca nhiếm, nhiễm mới & tử vong  các Châu, Đông Nam Á, Trung Đông, Top [5,10,20,30,40,50]" />
+        content="Tổng ca nhiếm, nhiễm mới & tử vong  các Châu, Đông Nam Á, Trung Đông, Top [6,10,20,30,40,50]" />
     <meta property="article:tag" content="coronavirus, covid-19 chart, Cô Vy, covy, biểu đồ covid-19" />
-    <meta content="Tổng ca nhiếm, nhiễm mới & tử vong  các Châu, Đông Nam Á, Trung Đông, Top [5,10,20,30,40,50]" />
+    <meta content="Tổng ca nhiếm, nhiễm mới & tử vong  các Châu, Đông Nam Á, Trung Đông, Top [6,10,20,30,40,50]" />
     <meta property="article:author" content="covi.phonglongdong.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Coronavirus Chart</title>
@@ -72,12 +72,15 @@
                 <option value="activeCases">Ca đang điều trị</option>
                 <option value="seriousCritical">Số ca nghiêm trọng</option>
                 <option value="totalCasesPer1MPop">Tỷ lệ nhiễm(ca/1 triệu dân)</option>
+                <option value="deathsPer1MPop">Tỷ lệ tử vong(ca/1 triệu dân)</option>
+                <option value="totalTests">Tổng ca xét nghiệm</option>
+                <option value="testsPer1MPop">Tỷ lệ xét nghiệm(ca/1 triệu dân)</option>
             </select>
             <select class="form-control" id="ddlLimitedCountry"
                 style="margin-top: -13px; margin-bottom: 5px; width: 150px;">
                 <option value="all">Tất cả quốc gia</option>
-                <option value="5">Top 5 Nước</option>
-                <option value="10" selected>Top 10 Nước</option>
+                <option value="6" selected>Top 6 Nước</option>
+                <option value="10">Top 10 Nước</option>
                 <option value="eastSouthAsia">Đông Nam Á</option>
                 <option value="middleEast">Trung Đông</option>
                 <option value="asia">Châu Á</option>
@@ -108,16 +111,16 @@
                     <option value="4500">4500px</option>
                     <option value="5000">5000px</option>
                     <option value="8000">8000px</option>
-                </select><br />
-                <!-- <a href="#" onclick="alert('Cảm ơn thiện chí của bạn, hiện tại chỉ là bản demo, mình sẽ cập nhật sau')">Góp ý</a> -->
+                </select><br />👉
+                <a href="#" onclick="alert('Email: phillip7.et@gmail.com')">Liên hệ</a>
             </div>
+            
         </fieldset>
     </form>
     <script>
         _u = _.noConflict();
     </script>
     <script src="js/chart.js"></script>
-    <!-- <script src="js/fetch.js"></script> -->
 </body>
 
 </html>
