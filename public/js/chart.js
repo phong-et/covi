@@ -9,18 +9,18 @@
         globalData = [],
         selectedIcon = collapsedIcon,
         isMobile = () => {
-            //return window.innerHeight > window.innerWidth
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && window.innerHeight > window.innerWidth
         },
         autoLoad = () => {
-            if (isMobile())
+            let isMobileDevice = isMobile()
+            if (isMobileDevice)
                 $('#ddlLimitedCountry option[value=6]').prop('selected', 'selected')
             else
                 $('#ddlLimitedCountry option[value=10]').prop('selected', 'selected')
             loadData(genFileName(new Date()) + '?v=' + new Date().getTime(), data => {
                 globalData = data
-                let limitedNumber = isMobile() ? 6 : 10
-                chartTitle += isMobile() ? ' Top 6 Nước' : ' Top 10 Nước'
+                let limitedNumber = isMobileDevice ? 6 : 10
+                chartTitle += isMobileDevice ? ' Top 6 Nước' : ' Top 10 Nước'
                 if (Object.keys(globalData).length <= 1) {
                     alert('DỮ LIỆU CHƯA CẬP NHẬT')
                     drawChart([])
@@ -101,8 +101,7 @@
                 //fileName = genFileName($('#datepickerCovid').datepicker('getDate')),
                 limitedNumber = $('#ddlLimitedCountry option:selected').val(),
                 isIncludedTheWorld = $('#cbIsIncludedTheWorld').is(':checked')
-
-            chartTitle = caseType.text()
+            chartTitle = caseType.text() + ' ' + $('#ddlLimitedCountry option:selected').text()
             if (Object.keys(globalData).length === 0) {
                 alert('DỮ LIỆU CHƯA CẬP NHẬT')
                 drawChart([])
