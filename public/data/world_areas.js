@@ -134,7 +134,7 @@ let areas = {
         "panama": "pa na ma",
         "dominican_republic": "cộng hòa dominica",
         "colombia": "cô lôm bia",
-        "araentina": "ác hen ti na",
+        "argentina": "ác hen ti na",
         "cuba": "Cu Ba",
         "costa_rica": "cốt xta ri ca",
         "uruguay": "u ru goay",
