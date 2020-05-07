@@ -31,7 +31,8 @@ let areas = {
         "myanmar": ""
     },
     "euro": {
-        "uk":"vương quốc anh",
+        "austria": "",
+        "uk": "vương quốc anh",
         "spain": "tây ban nha",
         "germany": "đức",
         "norway": "na uy",
@@ -156,7 +157,6 @@ let areas = {
         "barbados": "",
         "french_guiana": "",
         "martinique": "",
-        "french_polynesia": "",
         "dominica": "",
         "caribbean_netherlands": "",
         "sint_maarten": "",
@@ -233,12 +233,12 @@ let areas = {
         "western_sahara": ""
     },
     "australia": {
-        "austria": "",
         "australia": "",
         "papua_new_guinea": "papua_new_guinea",
         "new_zealand": "niu di lân",
         "fiji": "",
-        "new_caledonia": ""
+        "new_caledonia": "",
+        "french_polynesia": "",
     },
     "others": {
         "diamond_princess": "du thuyền diamond_princess",

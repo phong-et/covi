@@ -61,7 +61,7 @@ function genHtmlToJsonOfTheWorld(htmlBody) {
     let jsonTheWorld = genHtmlToJsonOfCountry(rowOfTheWorld.html().trim())
     return jsonTheWorld
 }
-async function genContentToJson(htmlBody, selectorQuery) {
+async function genContentToJson(htmlBody) {
     let jsonCountries = {}
     let jsonCountry = {}
     let $ = cheerio.load(htmlBody)
