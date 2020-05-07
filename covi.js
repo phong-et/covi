@@ -61,13 +61,19 @@ function genHtmlToJsonOfTheWorld(htmlBody) {
     let jsonTheWorld = genHtmlToJsonOfCountry(rowOfTheWorld.html().trim())
     return jsonTheWorld
 }
-async function genContentToJson(htmlBody) {
+async function genContentToJson(htmlBody, selectorQuery) {
     let jsonCountries = {}
     let jsonCountry = {}
     let $ = cheerio.load(htmlBody)
     let jsonTheWorld = genHtmlToJsonOfTheWorld(htmlBody)
     jsonCountries = Object.assign(jsonCountries, jsonTheWorld)
     let rows = $('#main_table_countries_today tr[style=""]')
+    for (let i = 0; i < rows.length; i++) {
+        let row = cheerio.load(rows.eq(i).html().trim(), { xmlMode: true })
+        jsonCountry = genHtmlToJsonOfCountry(row.html().trim())
+        jsonCountries = Object.assign(jsonCountries, jsonCountry)
+    }
+    rows = $('#main_table_countries_today tr[style="background-color:#EAF7D5"]')
     for (let i = 0; i < rows.length; i++) {
         let row = cheerio.load(rows.eq(i).html().trim(), { xmlMode: true })
         jsonCountry = genHtmlToJsonOfCountry(row.html().trim())
