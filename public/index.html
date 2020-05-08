@@ -38,6 +38,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" />
     <script src="data/world_areas.js?v=5"></script>
+    <script src="js/lang.js"></script>
     <link rel="stylesheet" href="css/chart.css" />
     <link rel="stylesheet" href="css/style.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -97,7 +98,7 @@
             </select><br />
 
             <input type="checkbox" id="cbIsIncludedTheWorld">
-            <label>Hiện thị dữ liệu thế giới</label><br />
+            <label id="lblIncludeDataOfWorld">Hiển thị dữ liệu thế giới</label><br />
             <button id="btnViewChart" type="button" style="margin-top:-13px; display: none;"
                 class="btn btn-primary btn-small"><i class="fa fa-refresh"></i><span></span> Xem đồ thị</button>
             <div id="divResizer2" style="margin:2px; padding:0;">
@@ -113,11 +114,9 @@
                     <option value="4500">4500px</option>
                     <option value="5000">5000px</option>
                     <option value="8000">8000px</option>
-                </select><br />👉
-                <a href="#" onclick="alert('Email: phillip7.et@gmail.com')">Liên hệ</a>
+                </select><br />
+                <!-- 👉<a href="#" onclick="alert('Email:')">Liên hệ</a> -->
             </div>
-            
-            
         </fieldset>
     </form>
     <script>

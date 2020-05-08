@@ -1,8 +1,11 @@
 (function () {
     let log = console.log,
+        defaultLang = 'en',
         Chart,
-        chartTitle = 'Tổng Ca Nhiễm',
-        chartSubTitle = 'Cập nhật mới nhất lúc ' + new Date().toLocaleString('vi-VN') + ' từ worldometers.info',
+        currentLanguage = localStorage.getItem('lang') || defaultLang
+    words = Languages[currentLanguage] || {}
+    chartTitle = words.totalCase,
+        chartSubTitle = `${words.latestUpdateAt} ${new Date().toLocaleString('vi-VN')} ${words.from} worldometers.info`,
         _15_MINUTES = 1000 * 1000,
         expandedIcon = 'img/Editing-Expand-icon.png',
         collapsedIcon = 'img/Editing-Collapse-icon.png',
@@ -12,6 +15,7 @@
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && window.innerHeight > window.innerWidth
         },
         autoLoad = () => {
+            switchLanguage(currentLanguage)
             let isMobileDevice = isMobile()
             if (isMobileDevice)
                 $('#ddlLimitedCountry option[value=6]').prop('selected', 'selected')
@@ -20,9 +24,9 @@
             loadData(genFileName(new Date()) + '?v=' + new Date().getTime(), data => {
                 globalData = data
                 let limitedNumber = isMobileDevice ? 6 : 10
-                chartTitle += isMobileDevice ? ' Top 6 Nước' : ' Top 10 Nước'
+                chartTitle += isMobileDevice ? ' ' + words.top6 : ' ' + words.top10
                 if (Object.keys(globalData).length <= 1) {
-                    alert('DỮ LIỆU CHƯA CẬP NHẬT')
+                    alert(words.dataHasNotUpdateYet + ' 3')
                     drawChart([])
                 }
                 else drawChart(
@@ -81,8 +85,43 @@
             fhs('6c6f636174696f6e'),      // [3]
             fhs('686f73746e616d65'),      // [4]
             fhs('6c6f63616c686f7374'),    // [5]
-        ];
-
+        ],
+        switchLanguage = (lang) => {
+            words = Languages[lang]
+            $('#ddlCaseType').html(`
+                <option value="totalCases" selected>${words.totalCase}</option>
+                <option value="newCases">${words.newCases}</option>
+                <option value="totalDeaths">${words.totalDeaths}</option>
+                <option value="newDeaths">${words.newDeaths}</option>
+                <option value="totalRecovered">${words.totalRecovered}</option>
+                <option value="activeCases">${words.activeCases}</option>
+                <option value="seriousCritical">${words.seriousCritical}</option>
+                <option value="totalCasesPer1MPop">${words.totalCasesPer1MPop}</option>
+                <option value="deathsPer1MPop">${words.deathsPer1MPop}</option>
+                <option value="totalTests">${words.totalTests}</option>
+                <option value="testsPer1MPop">${words.testsPer1MPop}</option>
+            `)
+            $('#ddlLimitedCountry').html(`
+                <option value="all">${words.allCountries}</option>
+                <option value="6" selected>${words.top6}</option>
+                <option value="10">${words.top10}</option>
+                <option value="eastSouthAsia">${words.eastSouthAsia}</option>
+                <option value="middleEast">${words.middleEast}</option>
+                <option value="namerica">${words.northAmerica}</option>
+                <option value="samerica">${words.southAmerica}</option>
+                <option value="asia">${words.asia}</option>
+                <option value="euro">${words.euro}</option>
+                <option value="america">${words.america}</option>
+                <option value="africa">${words.africa}</option>
+                <option value="australia">${words.australia}</option>
+                <option value="20">${words.top20}</option>
+                <option value="30">${words.top30}</option>
+                <option value="40">${words.top40}</option>
+                <option value="50">${words.top50}</option>
+            `)
+            $('#ddlSizeChart option[value=all]').text(words.expandChartWidth)
+            $('#lblIncludeDataOfWorld').html(words.includeDataOfWorld)
+        };
     $().ready(function () {
         // load chart as default conditions
         autoLoad()
@@ -103,7 +142,7 @@
                 isIncludedTheWorld = $('#cbIsIncludedTheWorld').is(':checked')
             chartTitle = caseType.text() + ' ' + $('#ddlLimitedCountry option:selected').text()
             if (Object.keys(globalData).length === 0) {
-                alert('DỮ LIỆU CHƯA CẬP NHẬT')
+                alert(words.dataHasNotUpdateYet + ' 4')
                 drawChart([])
             }
             else {
@@ -126,7 +165,7 @@
             loadData(genFileName($('#datepickerCovid').datepicker('getDate')), data => {
                 globalData = data
                 if (data.length === 0)
-                    alert('DỮ LIỆU CHƯA CẬP NHẬT')
+                    alert(words.dataHasNotUpdateYet + ' 1')
                 else btnViewChart.trigger('click')
             })
 
@@ -161,7 +200,7 @@
             window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[0]) + hex2a(hw[1]) + hex2a(hw[2]))
             $.getJSON('data/' + fileName, function (json) {
                 callback(json)
-            }).fail(function () { alert('DỮ LIỆU CHƯA CẬP NHẬT') })
+            }).fail(function () { alert(words.dataHasNotUpdateYet + ' 2') })
         else callback([0])
     }
     function filterCountriesByArea(areaName, countries, areas) {
@@ -285,12 +324,12 @@
             xAxis: {
                 type: 'category',
                 title: {
-                    text: 'Quốc gia <br/><br/>©️ copyright covi.phonglongdong.com'
+                    text: `${words.national} <br/><br/>©️ copyright covi.phonglongdong.com`
                 },
             },
             yAxis: {
                 title: {
-                    text: 'Số người'
+                    text: words.caseNumber
                 },
             },
             legend: {
