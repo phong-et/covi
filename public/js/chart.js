@@ -3,7 +3,7 @@
         Chart,
         chartTitle = 'Tổng Ca Nhiễm',
         chartSubTitle = 'Cập nhật mới nhất lúc ' + new Date().toLocaleString('vi-VN') + ' từ worldometers.info',
-        _15_MINUTES = 900 * 1000,
+        _15_MINUTES = 1000 * 1000,
         expandedIcon = 'img/Editing-Expand-icon.png',
         collapsedIcon = 'img/Editing-Collapse-icon.png',
         globalData = [],
@@ -32,7 +32,7 @@
                 )
             })
             setTimeout(() => {
-                autoLoad()
+                location.reload();
             }, _15_MINUTES);
         },
         toggleSetting = (e) => {
@@ -244,7 +244,7 @@
     const format = (number) => new Intl.NumberFormat(['ban', 'id']).format(number)
     const formatPercent = (number) => {
         let formatNumber = parseFloat(number).toFixed(2)
-        return formatNumber !== 'Infinity' ? formatNumber + '%' : formatNumber
+        return (formatNumber !== 'Infinity' && formatNumber <= 100 & formatNumber >= 0.01) ? formatNumber + '%' : ''
     }
     function drawChart(data) {
         Highcharts.theme = {

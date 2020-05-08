@@ -31,12 +31,13 @@
     <link href="css/bootstrap-datepicker.min.css" rel="stylesheet" />
     <!--Lodash-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script> -->
     <!-- Bootstrap css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" />
-    <script src="data/world_areas.js"></script>
+    <script src="data/world_areas.js?v=5"></script>
     <link rel="stylesheet" href="css/chart.css" />
     <link rel="stylesheet" href="css/style.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -71,18 +72,19 @@
                 <option value="totalRecovered">Tổng ca bình phục</option>
                 <option value="activeCases">Ca đang điều trị</option>
                 <option value="seriousCritical">Số ca nghiêm trọng</option>
-                <option value="totalCasesPer1MPop">Tỷ lệ nhiễm(ca/1 triệu dân)</option>
-                <option value="deathsPer1MPop">Tỷ lệ tử vong(ca/1 triệu dân)</option>
+                <option value="totalCasesPer1MPop">Mật độ nhiễm(ca/triệu dân)</option>
+                <option value="deathsPer1MPop">Mật độ tử vong(ca/triệu dân)</option>
                 <option value="totalTests">Tổng ca xét nghiệm</option>
-                <option value="testsPer1MPop">Tỷ lệ xét nghiệm(ca/1 triệu dân)</option>
+                <option value="testsPer1MPop">Mật độ xét nghiệm(ca/triệu dân)</option>
             </select>
-            <select class="form-control" id="ddlLimitedCountry"
-                style="margin-top: -13px; margin-bottom: 5px; width: 150px;">
+            <select class="form-control" id="ddlLimitedCountry" style="margin-top: -13px; margin-bottom: 5px; width: 150px;">
                 <option value="all">Tất cả quốc gia</option>
                 <option value="6" selected>Top 6 Nước</option>
                 <option value="10">Top 10 Nước</option>
                 <option value="eastSouthAsia">Đông Nam Á</option>
                 <option value="middleEast">Trung Đông</option>
+                <option value="namerica">Bắc Mỹ</option>
+                <option value="samerica">Nam Mỹ</option>
                 <option value="asia">Châu Á</option>
                 <option value="euro">Châu Âu</option>
                 <option value="america">Châu Mỹ</option>
@@ -115,12 +117,13 @@
                 <a href="#" onclick="alert('Email: phillip7.et@gmail.com')">Liên hệ</a>
             </div>
             
+            
         </fieldset>
     </form>
     <script>
         _u = _.noConflict();
     </script>
-    <script src="js/chart.js"></script>
+    <script src="js/chart.js?v=6"></script>
 </body>
 
 </html>
