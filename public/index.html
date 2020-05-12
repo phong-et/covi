@@ -3,6 +3,7 @@
 
 <head>
     <meta charset='utf-8'></meta>
+
     <!-- Open Graph data -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Biểu đồ Covid-19" />
@@ -17,6 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Coronavirus Chart</title>
     <link rel="shortcut icon" href="//img.icons8.com/nolan/64/coronavirus.png">
+
     <!-- Hightchart -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/data.js"></script>
@@ -24,14 +26,19 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
     <!-- datepicker -->
     <script src="js/bootstrap-datepicker.min.js"></script>
     <link href="css/bootstrap-datepicker.min.css" rel="stylesheet" />
+
     <!--Lodash-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script> -->
+
     <!-- Bootstrap css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -41,6 +48,9 @@
     <script src="js/lang.js"></script>
     <link rel="stylesheet" href="css/chart.css" />
     <link rel="stylesheet" href="css/style.css" />
+
+    <!-- MDBootstrap flags -->
+    <link href="css/flag.min.css" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164564768-1"></script>
     <script>
@@ -63,6 +73,8 @@
             </legend>
             <i class="far fa-calendar-alt fa-2x" style="margin-top: 2px;color: #000;"></i>
             <input id="datepickerCovid" style="width:120px; margin-top: -13px;" type="text" class="form-control">
+            <!-- <i class="america flag"></i> -->
+            <button type="button" id="btnChangLang" class="btn btn-outline-primary waves-effect btn-sm"> &nbsp;<i id='flagLang' class="flag us"></i></button>
             <br /><br />
             <!-- <label id="lbAge">Chọn loại đồ thị: </label> -->
             <select class="form-control" id="ddlCaseType" style="margin-top:-13px; margin-bottom: 5px; width:180px;">

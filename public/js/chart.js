@@ -1,10 +1,10 @@
 (function () {
     let log = console.log,
-        defaultLang = 'en',
+        defaultLang = 'vn',
         Chart,
-        currentLanguage = localStorage.getItem('lang') || defaultLang
-    words = Languages[currentLanguage] || {}
-    chartTitle = words.totalCase,
+        currentLanguage = localStorage.getItem('lang') || defaultLang,
+        words = Languages[currentLanguage] || {},
+        chartTitle = words.totalCase,
         chartSubTitle = `${words.latestUpdateAt} ${new Date().toLocaleString('vi-VN')} ${words.from} worldometers.info`,
         _15_MINUTES = 1000 * 1000,
         expandedIcon = 'img/Editing-Expand-icon.png',
@@ -15,7 +15,6 @@
             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && window.innerHeight > window.innerWidth
         },
         autoLoad = () => {
-            switchLanguage(currentLanguage)
             let isMobileDevice = isMobile()
             if (isMobileDevice)
                 $('#ddlLimitedCountry option[value=6]').prop('selected', 'selected')
@@ -24,7 +23,7 @@
             loadData(genFileName(new Date()) + '?v=' + new Date().getTime(), data => {
                 globalData = data
                 let limitedNumber = isMobileDevice ? 6 : 10
-                chartTitle += isMobileDevice ? ' ' + words.top6 : ' ' + words.top10
+                chartTitle = $('#ddlCaseType option:selected').text() + ' ' + isMobileDevice ? ' ' + words.top6 : ' ' + words.top10
                 if (Object.keys(globalData).length <= 1) {
                     alert(words.dataHasNotUpdateYet + ' 3')
                     drawChart([])
@@ -121,9 +120,15 @@
             `)
             $('#ddlSizeChart option[value=all]').text(words.expandChartWidth)
             $('#lblIncludeDataOfWorld').html(words.includeDataOfWorld)
+        },
+        changeFlag = (lang) => {
+            $('#flagLang').removeClass(lang === 'us' ? 'vn' : 'us')
+            $('#flagLang').addClass(lang)
         };
     $().ready(function () {
         // load chart as default conditions
+        changeFlag(currentLanguage === 'vn' ? 'us' : 'vn')
+        switchLanguage(currentLanguage)
         autoLoad()
         let options = {
             format: 'dd/mm/yyyy',
@@ -184,6 +189,13 @@
             if (selectedIcon === collapsedIcon) {
                 toggleSetting($($("fieldset legend")))
             }
+        })
+        $('#btnChangLang').click(function () {
+            let lang = $('#flagLang').prop('class').split(' ').pop()
+            localStorage.setItem('lang', lang)
+            changeFlag(lang === 'us' ? 'vn' : 'us')
+            switchLanguage(lang)
+            autoLoad()
         })
     })
     //date is a Date() object

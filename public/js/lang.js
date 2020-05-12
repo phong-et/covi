@@ -1,5 +1,5 @@
 let Languages = {
-    vi: {
+    vn: {
         totalCase: 'Tổng ca nhiễm',
         latestUpdateAt: 'Cập nhật mới nhất lúc',
         from: 'từ',
@@ -36,7 +36,7 @@ let Languages = {
         eastSouthAsia:'Đông Nam Á',
         middleEast:'Trung Đông'
     },
-    en: {
+    us: {
         totalCase: 'Total Case',
         latestUpdateAt: 'Latest update at',
         from: 'from',
