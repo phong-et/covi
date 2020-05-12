@@ -49,4 +49,19 @@ label {
 }
 html,body{height:100%; width:100%}
 form{font-family: Tahoma, Helvetica, sans-serif}
-/* fieldset {padding: 3px !important;} */
+
+#btnChangLang{
+  margin-top: -13px !important;
+}
+/* some device mobile */
+@media screen and (max-device-width: 480px) and (orientation: portrait) {
+  #btnChangLang{margin-top: 0 !important}
+}
+/* iPad */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  #btnChangLang{margin-top: 0 !important}
+}
+/* iPad Pro */
+@media screen and (min-device-width: 1024px) and (max-device-width:1366px) {
+  #btnChangLang{margin-top: 0 !important}
+}

@@ -5,7 +5,7 @@
         currentLanguage = localStorage.getItem('lang') || defaultLang,
         words = Languages[currentLanguage] || {},
         chartTitle = words.totalCase,
-        chartSubTitle = `${words.latestUpdateAt} ${new Date().toLocaleString('vi-VN')} ${words.from} worldometers.info`,
+        chartSubTitle = `${words.latestUpdateAt} ${new Date().toLocaleString(currentLanguage === 'vn' ? 'vi-VN' : 'en-US')} ${words.from} worldometers.info`,
         _15_MINUTES = 1000 * 1000,
         expandedIcon = 'img/Editing-Expand-icon.png',
         collapsedIcon = 'img/Editing-Collapse-icon.png',
@@ -112,7 +112,7 @@
                 <option value="euro">${words.euro}</option>
                 <option value="america">${words.america}</option>
                 <option value="africa">${words.africa}</option>
-                <option value="australia">${words.australia}</option>
+                <option value="oceania">${words.oceania}</option>
                 <option value="20">${words.top20}</option>
                 <option value="30">${words.top30}</option>
                 <option value="40">${words.top40}</option>
@@ -120,6 +120,7 @@
             `)
             $('#ddlSizeChart option[value=all]').text(words.expandChartWidth)
             $('#lblIncludeDataOfWorld').html(words.includeDataOfWorld)
+            chartSubTitle = `${words.latestUpdateAt} ${new Date().toLocaleString(lang === 'vn' ? 'vi-VN' : 'en-US')} ${words.from} worldometers.info`
         },
         changeFlag = (lang) => {
             $('#flagLang').removeClass(lang === 'us' ? 'vn' : 'us')

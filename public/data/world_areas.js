@@ -289,7 +289,7 @@ let areas = {
         "car": "Cộng Hòa Trung Phi",
         "western_sahara": ""
     },
-    "australia": {
+    "oceania": {
         "australia": "",
         "papua_new_guinea": "papua_new_guinea",
         "new_zealand": "niu di lân",
