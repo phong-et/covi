@@ -127,6 +127,8 @@
             $('#flagLang').addClass(lang)
         };
     $().ready(function () {
+        toggleSetting($("fieldset legend"))
+        toggleSetting($("fieldset legend"))
         // load chart as default conditions
         changeFlag(currentLanguage === 'vn' ? 'us' : 'vn')
         switchLanguage(currentLanguage)
