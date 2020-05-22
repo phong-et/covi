@@ -88,30 +88,30 @@ function genHtmlToJsonOfCountry(strHtmlRow) {
     let $ = cheerio.load(strHtmlRow, { xmlMode: true })
     let jsonRow = {},
         // name country
-        rowKeyName = $('td').eq(0).text().trim().replace(/\s+|\n|-|\./g, '_').replace('__', '_').toLowerCase(),
+        rowKeyName = $('td').eq(1).text().trim().replace(/\s+|\n|-|\./g, '_').replace('__', '_').toLowerCase(),
         rowKeyValue = [
             //totalCases: 
-            +getCaseNumber($('td'), 1),
-            //newCases: 
             +getCaseNumber($('td'), 2),
-            //totalDeaths: 
+            //newCases: 
             +getCaseNumber($('td'), 3),
-            //newDeaths: 
+            //totalDeaths: 
             +getCaseNumber($('td'), 4),
-            //totalRecovered: 
+            //newDeaths: 
             +getCaseNumber($('td'), 5),
-            //activeCases: 
+            //totalRecovered: 
             +getCaseNumber($('td'), 6),
-            //seriousCritical: 
+            //activeCases: 
             +getCaseNumber($('td'), 7),
-            //totalCasesPer1MPop: 
+            //seriousCritical: 
             +getCaseNumber($('td'), 8),
-            //deathsPer1MPop: 
+            //totalCasesPer1MPop: 
             +getCaseNumber($('td'), 9),
-            //totalTests: 
+            //deathsPer1MPop: 
             +getCaseNumber($('td'), 10),
-            //testsPer1MPop: 
+            //totalTests: 
             +getCaseNumber($('td'), 11),
+            //testsPer1MPop: 
+            +getCaseNumber($('td'), 12),
         ]
     jsonRow[rowKeyName] = rowKeyValue
     return jsonRow
