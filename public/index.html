@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset='utf-8'></meta>
+    <meta charset='utf-8'>
+    </meta>
     <!-- Open Graph data -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Biểu đồ so sánh covid-19 các quốc gia" />
@@ -10,7 +12,8 @@
     <meta property="og:image" content="img/chart.covi.phonglongdong.jpg" />
     <meta property="og:description"
         content="Tổng ca nhiếm, nhiễm mới & tử vong  các Châu, Đông Nam Á, Trung Đông, Top [6,10,20,30,40,50]" />
-    <meta property="article:tag" content="coronavirus, covid-19 chart, Cô Vy, covy, Biểu đồ so sánh covid-19 các quốc gia" />
+    <meta property="article:tag"
+        content="coronavirus, covid-19 chart, Cô Vy, covy, Biểu đồ so sánh covid-19 các quốc gia" />
     <meta content="Tổng ca nhiếm, nhiễm mới & tử vong  các Châu, Đông Nam Á, Trung Đông, Top [6,10,20,30,40,50]" />
     <meta property="article:author" content="covi.phonglongdong.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,7 +46,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet" />
     <script src="data/world_areas.js?v=7"></script>
-    <script src="js/lang.js?v=2"></script>
+    <script src="js/lang.js?v=3"></script>
     <link rel="stylesheet" href="css/chart.css" />
     <link rel="stylesheet" href="css/style.css?v=2" />
 
@@ -57,6 +60,11 @@
         gtag('js', new Date());
         gtag('config', 'UA-164564768-1');
     </script>
+    <style>
+        fieldset > div {
+            margin-top: -16px
+        }
+    </style>
 </head>
 
 <body>
@@ -66,16 +74,13 @@
     <form id="form-search-control" class="form-inline">
         <fieldset class="controller-group">
             <legend class="togvis">
-                <h6><img id="imgToggle"
-                        src="img/Editing-Collapse-icon.png" /></h6>
+                <h6><img id="imgToggle" src="img/Editing-Collapse-icon.png" /></h6>
             </legend>
-            <i class="far fa-calendar-alt fa-2x" style="margin-top: 2px;color: #000;"></i>
-            <input id="datepickerCovid" style="width:120px; margin-top: -13px;" type="text" class="form-control">
-            <!-- <i class="america flag"></i> -->
-            <button type="button" id="btnChangLang" class="btn btn-outline-primary waves-effect btn-sm"> &nbsp;<i id='flagLang' class="flag us"></i></button>
-            <br /><br />
+
+            <i class="far fa-calendar-alt fa-2x" style="color: #537eb5;"></i>
+            <input id="datepickerCovid" style="width:120px;margin-bottom: 5px;" type="text" class="form-control"> <br />
             <!-- <label id="lbAge">Chọn loại đồ thị: </label> -->
-            <select class="form-control" id="ddlCaseType" style="margin-top:-13px; margin-bottom: 5px; width:180px;">
+            <select class="form-control" id="ddlCaseType" style="margin-bottom: 5px; width:180px;">
                 <option value="totalCases" selected>Tổng ca nhiễm</option>
                 <option value="newCases">Ca nhiễm mới</option>
                 <option value="totalDeaths">Tổng ca tử vong</option>
@@ -87,8 +92,8 @@
                 <option value="deathsPer1MPop">Mật độ tử vong(ca/triệu dân)</option>
                 <option value="totalTests">Tổng ca xét nghiệm</option>
                 <option value="testsPer1MPop">Mật độ xét nghiệm(ca/triệu dân)</option>
-            </select>
-            <select class="form-control" id="ddlLimitedCountry" style="margin-top: -13px; margin-bottom: 5px; width: 150px;">
+            </select><br />
+            <select class="form-control" id="ddlLimitedCountry" style="margin-bottom: 5px; width: 150px;">
                 <option value="all">Tất cả quốc gia</option>
                 <option value="6" selected>Top 6 Nước</option>
                 <option value="10">Top 10 Nước</option>
@@ -107,12 +112,10 @@
                 <option value="50">Top 50 Nước</option>
             </select><br />
 
-            <input type="checkbox" id="cbIsIncludedTheWorld">
-            <label id="lblIncludeDataOfWorld">Hiển thị dữ liệu thế giới</label><br />
             <button id="btnViewChart" type="button" style="margin-top:-13px; display: none;"
                 class="btn btn-primary btn-small"><i class="fa fa-refresh"></i><span></span> Xem đồ thị</button>
-            <div id="divResizer2" style="margin:2px; padding:0;">
-                <select class="form-control" id="ddlSizeChart" style="width: 180px;">
+            <div id="divResizer2">
+                <select class="form-control" id="ddlSizeChart" style="width: 180px; margin: 2px 2px 18px 0px;">
                     <option value="all" selected>Kéo dài biểu đồ</option>
                     <option value="1000">1000px</option>
                     <option value="1500">1500px</option>
@@ -126,6 +129,12 @@
                     <option value="8000">8000px</option>
                 </select><br />
                 <!-- 👉<a href="#" onclick="alert('Email:')">Liên hệ</a> -->
+
+                <button type="button" id="btnChangLang" class="btn btn-outline-primary waves-effect btn-sm">
+                    &nbsp;<i id='flagLang' class="flag us"></i></button>
+                <input type="checkbox" id="cbIsIncludedTheWorld">
+                <label id="lblIncludeDataOfWorld">Hiển thị dữ liệu thế giới</label><br />
+                <br />
             </div>
         </fieldset>
     </form>
