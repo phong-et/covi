@@ -84,6 +84,7 @@
             fhs('6c6f636174696f6e'),      // [3]
             fhs('686f73746e616d65'),      // [4]
             fhs('6c6f63616c686f7374'),    // [5]
+            fhs('636f76692e6865726f6b756170702e636f6d')
         ],
         switchLanguage = (lang) => {
             words = Languages[lang]
@@ -210,6 +211,8 @@
     }
     function loadData(fileName, callback) {
         if (
+            window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[6]) 
+            ||
             window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[5])
             ||
             window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[0]) + hex2a(hw[1]) + hex2a(hw[2]))
