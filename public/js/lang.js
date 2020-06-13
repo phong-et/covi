@@ -23,7 +23,7 @@ let Languages = {
         top6:'Top 6 Nước',
         top10:'Top 10 Nước',
         top20:'Top 20 Nước',
-        top30:'Top 20 Nước',
+        top30:'Top 30 Nước',
         top40:'Top 40 Nước',
         top50:'Top 50 Nước',
         asia:'Châu Á',
