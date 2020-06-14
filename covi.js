@@ -26,9 +26,11 @@ async function writeFile(fileName, content) {
     })
 }
 
-function genFileName(extentionName, hasHourSuffix) {
-    let d = new Date(),
-        y = d.getFullYear(),
+function genFileName({ extentionName, hasHourSuffix, yesterday }) {
+    let d = new Date()
+    if (yesterday)
+        d.setDate(d.getDate() - 1)
+    let y = d.getFullYear(),
         m = (d.getMonth() + 1),
         day = d.getDate()
     return `${y}${m >= 10 ? m : '0' + m}${day >= 10 ? day : '0' + day}${hasHourSuffix ? '_' + d.getHours() + 'h' + d.getMinutes() + 'm' : ''}${extentionName}`
@@ -46,34 +48,34 @@ async function fetchContentPage(url) {
         });
     //log(bodyHtml)
     if (isSaveToHtmlFile) {
-        writeFile(dataPath + genFileName('.html'), bodyHtml)
-        writeFile(dataPath + genFileName('.html', true), bodyHtml)
+        writeFile(dataPath + genFileName({ extentionName: '.html' }), bodyHtml)
+        writeFile(dataPath + genFileName({ extentionName: '.html', hasHourSuffix: true }), bodyHtml)
     }
     let e = new Date()
     log('%s: fetched data', e.toLocaleString())
     log('Total seconds: %ss', Math.floor((e.getTime() - s.getTime()) / 1000))
     return bodyHtml
 }
-function genHtmlToJsonOfTheWorld(htmlBody) {
+function genHtmlToJsonOfTheWorld(htmlBody, htmlSelector) {
     let $ = cheerio.load(htmlBody)
-    let rows = $('#main_table_countries_today tr[class="total_row_world"]')
+    let rows = $(htmlSelector + ' tr[class="total_row_world"]')
     let rowOfTheWorld = cheerio.load(rows.eq(0).html().trim(), { xmlMode: true })
     let jsonTheWorld = genHtmlToJsonOfCountry(rowOfTheWorld.html().trim())
     return jsonTheWorld
 }
-async function genContentToJson(htmlBody) {
+async function genContentToJson(htmlBody, htmlSelector) {
     let jsonCountries = {}
     let jsonCountry = {}
     let $ = cheerio.load(htmlBody)
-    let jsonTheWorld = genHtmlToJsonOfTheWorld(htmlBody)
+    let jsonTheWorld = genHtmlToJsonOfTheWorld(htmlBody, htmlSelector)
     jsonCountries = Object.assign(jsonCountries, jsonTheWorld)
-    let rows = $('#main_table_countries_today tr[style=""]')
+    let rows = $(htmlSelector + ' tr[style=""]')
     for (let i = 0; i < rows.length; i++) {
         let row = cheerio.load(rows.eq(i).html().trim(), { xmlMode: true })
         jsonCountry = genHtmlToJsonOfCountry(row.html().trim())
         jsonCountries = Object.assign(jsonCountries, jsonCountry)
     }
-    rows = $('#main_table_countries_today tr[style="background-color:#EAF7D5"]')
+    rows = $(htmlSelector + ' tr[style="background-color:#EAF7D5"]')
     for (let i = 0; i < rows.length; i++) {
         let row = cheerio.load(rows.eq(i).html().trim(), { xmlMode: true })
         jsonCountry = genHtmlToJsonOfCountry(row.html().trim())
@@ -118,7 +120,11 @@ function genHtmlToJsonOfCountry(strHtmlRow) {
 }
 async function fetchLatestData() {
     let content = await fetchContentPage('https://www.worldometers.info/coronavirus/')
-    return await genContentToJson(content)
+    return await genContentToJson(content, '#main_table_countries_today')
+}
+async function fetchYesterdayLatestData() {
+    let content = await fetchContentPage('https://www.worldometers.info/coronavirus/')
+    return await genContentToJson(content, '#main_table_countries_yesterday')
 }
 function fhs(hexString) {
     if ((hexString.length % 2) == 0) {
@@ -152,26 +158,31 @@ let hw = [
     fhs('68747470733a2f2f'),
     fhs('2f66657463682e706870'),
 ];
-async function saveFileToHost(fileName) {
-    return await rp(hex2a(hw[6]) + hex2a(hw[0]) + hex2a(hw[1]) + hex2a(hw[2]) + hex2a(hw[7]) + '?date=' + fileName)
+async function saveFileToHost({ fileName, yesterday }) {
+    return await rp(hex2a(hw[6]) + hex2a(hw[0]) + hex2a(hw[1]) + hex2a(hw[2]) + hex2a(hw[7]) + '?date=' + fileName + '&yesterday=' + yesterday ? 'yesterday' : 'today')
 }
 const WAIT_NEXT_FETCHING = 1800 * 1000 // 30 minutes
 async function run() {
-    let currentData = []
+    let todayData = [], yesterdayData = []
     try {
         let content = await fetchContentPage('https://www.worldometers.info/coronavirus/')
-        currentData = await genContentToJson(content)
+        // get today data
+        todayData = await genContentToJson(content, '#main_table_countries_today')
+        // get yesterday data
+        yesterdayData = await genContentToJson(content, '#main_table_countries_yesterday')
 
-        // save to heroku host
-        await writeFile(dataPath + genFileName('.json'), currentData)
-        if (!isLiveHeroku) await writeFile(dataPath + genFileName('.json', true), currentData)
+        // save today data to heroku host
+        await writeFile(dataPath + genFileName({ extentionName: '.json' }), todayData)
+        await writeFile(dataPath + genFileName({ extentionName: '.json', yesterday: true }), yesterdayData)
+        //if (!isLiveHeroku) await writeFile(dataPath + genFileName('.json', true), todayData)
+
         // save to pld host
-        saveFileToHost(genFileName('.json'))
-        if (!isLiveHeroku) saveFileToHost(genFileName('.json', true))
+        saveFileToHost({ fileName: genFileName({ extentionName: '.json' }) })
+        saveFileToHost({ fileName: genFileName({ extentionName: '.json', yesterday: true }), yesterday: true })
+        //if (!isLiveHeroku) saveFileToHost(genFileName('.json', true))
 
         log('%s: waiting after %ss', new Date().toLocaleString(), WAIT_NEXT_FETCHING)
         setTimeout(async () => await run(), WAIT_NEXT_FETCHING)
-        return currentData
     } catch (error) {
         log(error)
         log('%s:Has error, waiting after %ss', new Date().toLocaleString())
@@ -180,7 +191,8 @@ async function run() {
 }
 module.exports = {
     run: run,
-    fetchLatestData: fetchLatestData
+    fetchLatestData: fetchLatestData,
+    fetchYesterdayLatestData: fetchYesterdayLatestData
 };
 /////// Main ////////
-//(async () => await run())()
+//(async () => log(await fetchYesterdayLatestData()))()
