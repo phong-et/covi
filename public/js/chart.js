@@ -88,6 +88,8 @@
         ],
         switchLanguage = (lang) => {
             words = Languages[lang]
+            title = $('#ddlCaseType option:selected').text() + ' ' + $('#ddlLimitedCountry option:selected').text()
+            chartSubTitle = `${words.latestUpdateAt} ${new Date().toLocaleString(lang === 'vn' ? 'vi-VN' : 'en-US')} ${words.from} worldometers.info`
             $('#ddlCaseType').html(`
                 <option value="totalCases" selected>${words.totalCase}</option>
                 <option value="newCases">${words.newCases}</option>
@@ -121,7 +123,7 @@
             `)
             $('#ddlSizeChart option[value=all]').text(words.expandChartWidth)
             $('#lblIncludeDataOfWorld').html(words.includeDataOfWorld)
-            chartSubTitle = `${words.latestUpdateAt} ${new Date().toLocaleString(lang === 'vn' ? 'vi-VN' : 'en-US')} ${words.from} worldometers.info`
+            
         },
         changeFlag = (lang) => {
             $('#flagLang').removeClass(lang === 'us' ? 'vn' : 'us')

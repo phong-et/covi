@@ -159,7 +159,9 @@ let hw = [
     fhs('2f66657463682e706870'),
 ];
 async function saveFileToHost({ fileName, yesterday }) {
-    return await rp(hex2a(hw[6]) + hex2a(hw[0]) + hex2a(hw[1]) + hex2a(hw[2]) + hex2a(hw[7]) + '?date=' + fileName + '&yesterday=' + yesterday ? 'yesterday' : 'today')
+    let url = hex2a(hw[6]) + hex2a(hw[0]) + hex2a(hw[1]) + hex2a(hw[2]) + hex2a(hw[7]) + '?date=' + fileName + '&yesterday=' + (yesterday ? 'yesterday' : 'today')
+    log(url)
+    return await rp(url)
 }
 const WAIT_NEXT_FETCHING = 1800 * 1000 // 30 minutes
 async function run() {

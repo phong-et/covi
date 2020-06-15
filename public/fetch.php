@@ -1,7 +1,7 @@
 <?php
     $date = $_GET["date"];
     $yesterday = $_GET["yesterday"];
-    $url = $yesterday == "yesterday" ? "http://covichart.herokuapp.com/yesterday" : "http://covichart.herokuapp.com/latest"
+    $url = $yesterday == "yesterday" ? "http://covichart.herokuapp.com/yesterday" : "http://covichart.herokuapp.com/latest";
     if($date) 
     {
         $ch = curl_init($url);
@@ -16,7 +16,7 @@
         }
         curl_close($ch);
         fclose($fp);
-        echo "true";
+        echo $url;
     }
     else
         echo "Miss date param"
