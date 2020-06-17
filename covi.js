@@ -102,18 +102,22 @@ function genHtmlToJsonOfCountry(strHtmlRow) {
             +getCaseNumber($('td'), 5),
             //totalRecovered: 
             +getCaseNumber($('td'), 6),
-            //activeCases: 
+            //newRecovered
             +getCaseNumber($('td'), 7),
-            //seriousCritical: 
+            //activeCases
             +getCaseNumber($('td'), 8),
-            //totalCasesPer1MPop: 
+            //seriousCritical
             +getCaseNumber($('td'), 9),
-            //deathsPer1MPop: 
+            //totalCasesPer1MPop
             +getCaseNumber($('td'), 10),
-            //totalTests: 
+            //deathsPer1MPop
             +getCaseNumber($('td'), 11),
-            //testsPer1MPop: 
+            //totalTests
             +getCaseNumber($('td'), 12),
+            //testsPer1MPop
+            +getCaseNumber($('td'), 13),
+            //pop
+            +getCaseNumber($('td'), 14),
         ]
     jsonRow[rowKeyName] = rowKeyValue
     return jsonRow

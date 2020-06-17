@@ -96,12 +96,14 @@
                 <option value="totalDeaths">${words.totalDeaths}</option>
                 <option value="newDeaths">${words.newDeaths}</option>
                 <option value="totalRecovered">${words.totalRecovered}</option>
+                <option value="newRecovered">${words.newRecovered}</option>
                 <option value="activeCases">${words.activeCases}</option>
                 <option value="seriousCritical">${words.seriousCritical}</option>
                 <option value="totalCasesPer1MPop">${words.totalCasesPer1MPop}</option>
                 <option value="deathsPer1MPop">${words.deathsPer1MPop}</option>
                 <option value="totalTests">${words.totalTests}</option>
                 <option value="testsPer1MPop">${words.testsPer1MPop}</option>
+                <option value="pop">${words.pop}</option>
             `)
             $('#ddlLimitedCountry').html(`
                 <option value="all">${words.allCountries}</option>
@@ -258,12 +260,14 @@
             case 'totalDeaths': indexCondition = 2; break
             case 'newDeaths': indexCondition = 3; break
             case 'totalRecovered': indexCondition = 4; break
-            case 'activeCases': indexCondition = 5; break
-            case 'seriousCritical': indexCondition = 6; break
-            case 'totalCasesPer1MPop': indexCondition = 7; break
-            case 'deathsPer1MPop': indexCondition = 8; break
-            case 'totalTests': indexCondition = 9; break
-            case 'testsPer1MPop': indexCondition = 10; break
+            case 'newRecovered': indexCondition = 5; break
+            case 'activeCases': indexCondition = 6; break
+            case 'seriousCritical': indexCondition = 7; break
+            case 'totalCasesPer1MPop': indexCondition = 8; break
+            case 'deathsPer1MPop': indexCondition = 9; break
+            case 'totalTests': indexCondition = 10; break
+            case 'testsPer1MPop': indexCondition = 11; break
+            case 'pop': indexCondition = 12; break
         }
         let countries;
         // filter countries by area
