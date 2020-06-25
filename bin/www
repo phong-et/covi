@@ -88,4 +88,4 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-require('../covi').run()
+//require('../covi').run()

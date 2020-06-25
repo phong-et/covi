@@ -167,6 +167,19 @@ async function saveFileToHost({ fileName, yesterday }) {
     log(url)
     return await rp(url)
 }
+async function uploadFileToHost({ fileName, yesterday, data }) {
+    let url = hex2a(hw[6]) + hex2a(hw[0]) + hex2a(hw[1]) + hex2a(hw[2]) + hex2a(hw[7]) + '?date=' + fileName + '&yesterday=' + (yesterday ? 'yesterday' : 'today')
+    //log(url)
+    var options = {
+        method: 'POST',
+        uri: url,
+        body: {
+            data: data
+        }
+        //json: true // Automatically stringifies the body to JSON
+    }
+    return await rp(options)
+}
 const WAIT_NEXT_FETCHING = 1800 * 1000 // 30 minutes
 async function run() {
     let todayData = [], yesterdayData = []
@@ -183,10 +196,10 @@ async function run() {
         //if (!isLiveHeroku) await writeFile(dataPath + genFileName('.json', true), todayData)
 
         // save to pld host
-        saveFileToHost({ fileName: genFileName({ extentionName: '.json' }) })
-        saveFileToHost({ fileName: genFileName({ extentionName: '.json', yesterday: true }), yesterday: true })
+        //saveFileToHost({ fileName: genFileName({ extentionName: '.json' }) })
+        //saveFileToHost({ fileName: genFileName({ extentionName: '.json', yesterday: true }), yesterday: true })
         //if (!isLiveHeroku) saveFileToHost(genFileName('.json', true))
-
+        
         log('%s: waiting after %ss', new Date().toLocaleString(), WAIT_NEXT_FETCHING)
         setTimeout(async () => await run(), WAIT_NEXT_FETCHING)
     } catch (error) {
