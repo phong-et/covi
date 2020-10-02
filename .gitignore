@@ -3,3 +3,5 @@ test/*.html
 node_modules/
 
 public/data/
+
+*.exe
