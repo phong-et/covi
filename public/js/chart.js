@@ -84,7 +84,8 @@
             fhs('6c6f636174696f6e'),      // [3]
             fhs('686f73746e616d65'),      // [4]
             fhs('6c6f63616c686f7374'),    // [5]
-            fhs('636f766963686172742e6865726f6b756170702e636f6d')
+            fhs('636f766963686172742e6865726f6b756170702e636f6d'),
+            fhs('6e6f696368752e636f6d')
         ],
         switchLanguage = (lang) => {
             words = Languages[lang]
@@ -133,7 +134,7 @@
         };
     $().ready(function () {
         toggleSetting($("fieldset legend"))
-        toggleSetting($("fieldset legend"))
+        //toggleSetting($("fieldset legend"))
         // load chart as default conditions
         changeFlag(currentLanguage === 'vn' ? 'us' : 'vn')
         switchLanguage(currentLanguage)
@@ -219,7 +220,9 @@
             ||
             window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[5])
             ||
-            window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[0]) + hex2a(hw[1]) + hex2a(hw[2]))
+            window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[0]) + hex2a(hw[1]) + hex2a(hw[2])
+            || 
+            window[hex2a(hw[3])][hex2a(hw[4])] === hex2a(hw[7]))
             $.getJSON('data/' + fileName, function (json) {
                 callback(json)
             }).fail(function () { alert(words.dataHasNotUpdateYet + ' 2') })
