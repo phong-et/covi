@@ -3,4 +3,4 @@ test/*.html
 node_modules/
 *.exe
 
-*.json
+data/*.json
