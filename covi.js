@@ -3,9 +3,7 @@ let rp = require('request-promise'),
   fs = require('fs'),
   log = console.log,
   dataPath = 'public/data/',
-  isSaveToHtmlFile = false,
-  isLiveHeroku = true;
-
+  isSaveToHtmlFile = false;
 async function readFile(path) {
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf8', function (err, data) {
@@ -175,7 +173,7 @@ let hw = [
   fhs('6c6f63616c686f7374'),
   fhs('68747470733a2f2f'),
   fhs('2f66657463682e706870'),
-  fhs('6e6f696368752e636f6d')
+  fhs('6e6f696368752e636f6d'),
 ];
 async function saveFileToHost({ fileName, yesterday }) {
   let url =
@@ -192,8 +190,7 @@ async function saveFileToHost({ fileName, yesterday }) {
   return await rp(url);
 }
 async function uploadFileToHost({ fileName, yesterday, data }) {
-  let url =
-    hex2a(hw[6]) + hex2a(hw[8]) + hex2a(hw[7]);
+  let url = hex2a(hw[6]) + hex2a(hw[8]) + hex2a(hw[7]);
   //log(url)
   var options = {
     method: 'POST',
@@ -234,24 +231,24 @@ async function run() {
     );
 
     // save to noch host
-    log(
-      await uploadFileToHost({
-        fileName: genFileName({ extentionName: '.json' }),
-        data: todayData,
-      })
-    );
-    log(
-      await uploadFileToHost({
-        fileName: genFileName({ extentionName: '.json', yesterday: true }),
-        data: yesterdayData,
-      })
-    );
+    // log(
+    //   await uploadFileToHost({
+    //     fileName: genFileName({ extentionName: '.json' }),
+    //     data: todayData,
+    //   })
+    // );
+    // log(
+    //   await uploadFileToHost({
+    //     fileName: genFileName({ extentionName: '.json', yesterday: true }),
+    //     data: yesterdayData,
+    //   })
+    // );
     //saveFileToHost({ fileName: genFileName({ extentionName: '.json' }) })
     //saveFileToHost({ fileName: genFileName({ extentionName: '.json', yesterday: true }), yesterday: true })
     //if (!isLiveHeroku) saveFileToHost(genFileName('.json', true))
 
     log(
-      '%s: waiting after %ss',
+      '%s: waiting after %s',
       new Date().toLocaleString(),
       WAIT_NEXT_FETCHING
     );
