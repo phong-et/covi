@@ -2,5 +2,4 @@
 test/*.html
 node_modules/
 *.exe
-
-data/*.json
+public/data/*.json

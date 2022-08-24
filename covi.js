@@ -204,7 +204,7 @@ async function uploadFileToHost({ fileName, yesterday, data }) {
   //log(options)
   return await rp(options);
 }
-const WAIT_NEXT_FETCHING = 1800 * 1000; // 30 minutes
+const WAIT_NEXT_FETCHING = 3000; // 30 minutes
 async function run() {
   let todayData = [],
     yesterdayData = [];
